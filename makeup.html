@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>✨ Glow Beauty - Makeup Essentials</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #fcf8f5;
+            color: #2d1b1b;
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #fce4ec 0%, #f8e8e8 100%);
+            padding: 2rem 2rem 1.5rem;
+            text-align: center;
+            border-bottom: 3px solid #f0d6d6;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.06);
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            font-weight: 300;
+            letter-spacing: 2px;
+            color: #4a2a2a;
+        }
+
+        .header h1 span {
+            font-weight: 700;
+            color: #c0395a;
+        }
+
+        .header p {
+            color: #6b4a4a;
+            font-size: 1.1rem;
+            margin-top: 0.3rem;
+            letter-spacing: 1px;
+        }
+
+        .nav-categories {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.8rem;
+            margin-top: 1.2rem;
+        }
+
+        .nav-categories a {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(4px);
+            padding: 0.5rem 1.4rem;
+            border-radius: 50px;
+            text-decoration: none;
+            color: #4a2a2a;
+            font-weight: 500;
+            font-size: 0.9rem;
+            border: 1px solid rgba(192, 57, 90, 0.2);
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        }
+
+        .nav-categories a:hover {
+            background: #c0395a;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(192, 57, 90, 0.3);
+            border-color: #c0395a;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #fce4ec 0%, #f3d9d9 100%);
+            padding: 4rem 2rem;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .hero h2 {
+            font-size: 2.8rem;
+            font-weight: 300;
+            color: #3a2323;
+        }
+
+        .hero h2 strong {
+            color: #c0395a;
+            font-weight: 700;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: #5a3a3a;
+            margin-top: 0.5rem;
+        }
+
+        /* Main Layout */
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 1.5rem 3rem;
+        }
+
+        .section-title {
+            font-size: 2.2rem;
+            font-weight: 300;
+            text-align: center;
+            color: #3a2323;
+            margin: 3rem 0 2rem;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(90deg, #c0395a, #e8a0b0);
+            margin: 0.5rem auto 0;
+            border-radius: 4px;
+        }
+
+        /* Product Grid */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 1.5rem;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 24px;
+            padding: 1.8rem 1.2rem 1.5rem;
+            text-align: center;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(192, 57, 90, 0.08);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #c0395a, #e8a0b0, #c0395a);
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+
+        .product-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 16px 48px rgba(192, 57, 90, 0.12);
+            border-color: rgba(192, 57, 90, 0.15);
+        }
+
+        .product-icon {
+            font-size: 3.2rem;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .product-card h3 {
+            font-size: 1.3rem;
+            color: #2d1b1b;
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+        }
+
+        .product-card .sub {
+            color: #7a5a5a;
+            font-size: 0.85rem;
+            margin-bottom: 0.8rem;
+            font-weight: 400;
+        }
+
+        .product-card .price {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #c0395a;
+            margin: 0.5rem 0;
+        }
+
+        .product-card .rating {
+            color: #f5a623;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+        }
+
+        .btn-add {
+            background: #c0395a;
+            color: white;
+            border: none;
+            padding: 0.6rem 1.8rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 0.8rem;
+            width: 100%;
+            max-width: 160px;
+        }
+
+        .btn-add:hover {
+            background: #a8324a;
+            transform: scale(1.05);
+            box-shadow: 0 4px 16px rgba(192, 57, 90, 0.3);
+        }
+
+        .btn-add:active {
+            transform: scale(0.95);
+        }
+
+        /* Featured Categories Section */
+        .featured-categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0 3rem;
+        }
+
+        .category-badge {
+            background: white;
+            padding: 1.5rem 0.5rem;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+            border: 1px solid #f0e0e0;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .category-badge:hover {
+            transform: translateY(-4px);
+            border-color: #c0395a;
+            box-shadow: 0 8px 24px rgba(192, 57, 90, 0.1);
+        }
+
+        .category-badge .icon {
+            font-size: 2.4rem;
+            display: block;
+        }
+
+        .category-badge .name {
+            font-weight: 600;
+            color: #3a2323;
+            margin-top: 0.3rem;
+            font-size: 0.95rem;
+        }
+
+        /* Shopping Cart */
+        .cart-section {
+            background: white;
+            border-radius: 30px;
+            padding: 2rem;
+            margin: 3rem 0 2rem;
+            box-shadow: 0 8px 40px rgba(0, 0, 0, 0.04);
+            border: 1px solid #f0e0e0;
+        }
+
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            border-bottom: 2px solid #f5e8e8;
+            padding-bottom: 1rem;
+        }
+
+        .cart-header h3 {
+            font-size: 1.6rem;
+            font-weight: 300;
+            color: #3a2323;
+        }
+
+        .cart-header h3 span {
+            font-weight: 700;
+            color: #c0395a;
+        }
+
+        .cart-items {
+            list-style: none;
+            padding: 0;
+            margin: 1rem 0;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .cart-items li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.6rem 0.4rem;
+            border-bottom: 1px solid #f5ecec;
+            font-size: 0.95rem;
+        }
+
+        .cart-items li .remove-btn {
+            background: none;
+            border: none;
+            color: #c0395a;
+            font-size: 1.2rem;
+            cursor: pointer;
+            padding: 0 0.5rem;
+            transition: 0.2s;
+        }
+
+        .cart-items li .remove-btn:hover {
+            transform: scale(1.2);
+            color: #8a1f3a;
+        }
+
+        .cart-total {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #2d1b1b;
+            border-top: 2px solid #f5e8e8;
+            padding-top: 1rem;
+            margin-top: 0.5rem;
+        }
+
+        .cart-total span {
+            color: #c0395a;
+        }
+
+        .empty-cart {
+            color: #7a5a5a;
+            font-style: italic;
+            padding: 1rem 0;
+        }
+
+        /* Footer */
+        .footer {
+            background: #2d1b1b;
+            color: #e0d0d0;
+            padding: 2.5rem 2rem;
+            text-align: center;
+            margin-top: 3rem;
+            border-radius: 30px 30px 0 0;
+        }
+
+        .footer p {
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
+
+        .footer .heart {
+            color: #e8a0b0;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.2rem;
+            }
+
+            .hero h2 {
+                font-size: 2rem;
+            }
+
+            .product-grid {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+                gap: 1.2rem;
+            }
+
+            .nav-categories a {
+                font-size: 0.8rem;
+                padding: 0.4rem 1rem;
+            }
+
+            .cart-header h3 {
+                font-size: 1.3rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .product-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 0.8rem;
+            }
+
+            .product-card {
+                padding: 1rem 0.6rem;
+            }
+
+            .product-icon {
+                font-size: 2.4rem;
+            }
+
+            .product-card h3 {
+                font-size: 1rem;
+            }
+
+            .btn-add {
+                font-size: 0.8rem;
+                padding: 0.5rem 1rem;
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="header">
+        <h1><span>✦</span> Glow <span>Beauty</span></h1>
+        <p>— your everyday makeup essentials —</p>
+        <nav class="nav-categories">
+            <a href="#lipstick">💄 Lipstick</a>
+            <a href="#foundation">✨ Foundation</a>
+            <a href="#concealer">🎨 Concealer</a>
+            <a href="#bronzer">☀️ Bronzer</a>
+            <a href="#contour">🌀 Contour</a>
+            <a href="#primer">🧴 Primer</a>
+        </nav>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+        <h2>Find your <strong>perfect</strong> shade</h2>
+        <p>Explore our curated collection of premium makeup</p>
+    </section>
+
+    <div class="container">
+
+        <!-- Featured Categories -->
+        <div class="featured-categories">
+            <div class="category-badge">
+                <span class="icon">💄</span>
+                <span class="name">Lipstick</span>
+            </div>
+            <div class="category-badge">
+                <span class="icon">✨</span>
+                <span class="name">Foundation</span>
+            </div>
+            <div class="category-badge">
+                <span class="icon">🎨</span>
+                <span class="name">Concealer</span>
+            </div>
+            <div class="category-badge">
+                <span class="icon">☀️</span>
+                <span class="name">Bronzer</span>
+            </div>
+            <div class="category-badge">
+                <span class="icon">🌀</span>
+                <span class="name">Contour</span>
+            </div>
+            <div class="category-badge">
+                <span class="icon">🧴</span>
+                <span class="name">Primer</span>
+            </div>
+        </div>
+
+        <!-- Products by Category -->
+        <div id="lipstick">
+            <h2 class="section-title">💄 Lipstick</h2>
+            <div class="product-grid" data-category="lipstick">
+                <!-- Products injected via JS -->
+            </div>
+        </div>
+
+        <div id="foundation">
+            <h2 class="section-title">✨ Foundation</h2>
+            <div class="product-grid" data-category="foundation">
+                <!-- Products injected via JS -->
+            </div>
+        </div>
+
+        <div id="concealer">
+            <h2 class="section-title">🎨 Concealer</h2>
+            <div class="product-grid" data-category="concealer">
+                <!-- Products injected via JS -->
+            </div>
+        </div>
+
+        <div id="bronzer">
+            <h2 class="section-title">☀️ Bronzer</h2>
+            <div class="product-grid" data-category="bronzer">
+                <!-- Products injected via JS -->
+            </div>
+        </div>
+
+        <div id="contour">
+            <h2 class="section-title">🌀 Contour</h2>
+            <div class="product-grid" data-category="contour">
+                <!-- Products injected via JS -->
+            </div>
+        </div>
+
+        <div id="primer">
+            <h2 class="section-title">🧴 Primer</h2>
+            <div class="product-grid" data-category="primer">
+                <!-- Products injected via JS -->
+            </div>
+        </div>
+
+        <!-- Shopping Cart -->
+        <div class="cart-section" id="cartSection">
+            <div class="cart-header">
+                <h3>🛍️ Your <span>Bag</span></h3>
+                <button class="btn-add" id="clearCartBtn" style="background:#7a5a5a; max-width:120px;">Clear All</button>
+            </div>
+            <ul class="cart-items" id="cartItems">
+                <li class="empty-cart">Your bag is empty. Add some products!</li>
+            </ul>
+            <div class="cart-total">
+                <span>Total:</span>
+                <span id="cartTotal">$0.00</span>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>✨ Glow Beauty — made with <span class="heart">♥</span> for makeup lovers</p>
+        <p style="font-size:0.8rem; opacity:0.6; margin-top:0.5rem;">© 2026 · all products are fictional · just for fun</p>
+    </footer>
+
+    <script>
+        // ----- Product Data -----
+        const products = [
+            // Lipstick
+            { id: 1, name: 'Velvet Rose', category: 'lipstick', icon: '💄', price: 24.99, rating: '★★★★★', sub: 'matte finish' },
+            { id: 2, name: 'Crimson Glow', category: 'lipstick', icon: '💋', price: 26.50, rating: '★★★★☆', sub: 'satin shine' },
+            { id: 3, name: 'Nude Bliss', category: 'lipstick', icon: '🌸', price: 22.00, rating: '★★★★★', sub: 'creamy nude' },
+            { id: 4, name: 'Berry Pop', category: 'lipstick', icon: '🍇', price: 28.00, rating: '★★★★☆', sub: 'glossy stain' },
+
+            // Foundation
+            { id: 5, name: 'Luminous Silk', category: 'foundation', icon: '✨', price: 45.00, rating: '★★★★★', sub: 'dewy finish' },
+            { id: 6, name: 'Matte Perfection', category: 'foundation', icon: '🎭', price: 42.50, rating: '★★★★☆', sub: 'oil control' },
+            { id: 7, name: 'Skin Tint', category: 'foundation', icon: '🌿', price: 38.00, rating: '★★★★☆', sub: 'light coverage' },
+            { id: 8, name: 'Full Cover', category: 'foundation', icon: '🛡️', price: 48.00, rating: '★★★★★', sub: 'high pigment' },
+
+            // Concealer
+            { id: 9, name: 'Brightening Wand', category: 'concealer', icon: '🌟', price: 28.00, rating: '★★★★★', sub: 'under-eye' },
+            { id: 10, name: 'Spot Cover', category: 'concealer', icon: '🎯', price: 24.50, rating: '★★★★☆', sub: 'blemish cover' },
+            { id: 11, name: 'Hydra Conceal', category: 'concealer', icon: '💧', price: 30.00, rating: '★★★★☆', sub: 'moisturizing' },
+
+            // Bronzer
+            { id: 12, name: 'Sun-Kissed', category: 'bronzer', icon: '☀️', price: 32.00, rating: '★★★★★', sub: 'warm glow' },
+            { id: 13, name: 'Golden Sands', category: 'bronzer', icon: '🏖️', price: 34.50, rating: '★★★★☆', sub: 'shimmer' },
+            { id: 14, name: 'Matte Bronze', category: 'bronzer', icon: '🌰', price: 30.00, rating: '★★★★☆', sub: 'natural matte' },
+
+            // Contour
+            { id: 15, name: 'Sculpt Stick', category: 'contour', icon: '🌀', price: 36.00, rating: '★★★★★', sub: 'cream formula' },
+            { id: 16, name: 'Powder Contour', category: 'contour', icon: '📦', price: 38.00, rating: '★★★★☆', sub: 'buildable' },
+            { id: 17, name: 'Cool Tone', category: 'contour', icon: '❄️', price: 34.00, rating: '★★★★☆', sub: 'ashy brown' },
+
+            // Primer
+            { id: 18, name: 'Poreless Base', category: 'primer', icon: '🧴', price: 28.00, rating: '★★★★★', sub: 'smoothing' },
+            { id: 19, name: 'Hydra Glow', category: 'primer', icon: '💦', price: 30.00, rating: '★★★★☆', sub: 'illuminating' },
+            { id: 20, name: 'Mattifying', category: 'primer', icon: '🧊', price: 26.00, rating: '★★★★☆', sub: 'shine control' },
+        ];
+
+        // ----- Cart state -----
+        let cart = [];
+
+        // ----- DOM refs -----
+        const cartItemsEl = document.getElementById('cartItems');
+        const cartTotalEl = document.getElementById('cartTotal');
+        const clearCartBtn = document.getElementById('clearCartBtn');
+
+        // ----- Render products into grids -----
+        function renderProducts() {
+            const categories = ['lipstick', 'foundation', 'concealer', 'bronzer', 'contour', 'primer'];
+            categories.forEach(cat => {
+                const grid = document.querySelector(`.product-grid[data-category="${cat}"]`);
+                if (!grid) return;
+                const catProducts = products.filter(p => p.category === cat);
+                grid.innerHTML = catProducts.map(p => `
+                    <div class="product-card" data-id="${p.id}">
+                        <span class="product-icon">${p.icon}</span>
+                        <h3>${p.name}</h3>
+                        <div class="sub">${p.sub}</div>
+                        <div class="rating">${p.rating}</div>
+                        <div class="price">$${p.price.toFixed(2)}</div>
+                        <button class="btn-add add-to-cart" data-id="${p.id}">Add to Bag</button>
+                    </div>
+                `).join('');
+            });
+
+            // Attach add-to-cart events
+            document.querySelectorAll('.add-to-cart').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    const id = parseInt(this.dataset.id);
+                    addToCart(id);
+                });
+            });
+        }
+
+        // ----- Cart functions -----
+        function addToCart(productId) {
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
+            cart.push(product);
+            updateCartUI();
+            // subtle animation feedback
+            const btn = document.querySelector(`.add-to-cart[data-id="${productId}"]`);
+            if (btn) {
+                btn.textContent = '✓ Added!';
+                btn.style.background = '#2d7a4a';
+                setTimeout(() => {
+                    btn.textContent = 'Add to Bag';
+                    btn.style.background = '#c0395a';
+                }, 800);
+            }
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCartUI();
+        }
+
+        function clearCart() {
+            cart = [];
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            if (cart.length === 0) {
+                cartItemsEl.innerHTML = `<li class="empty-cart">Your bag is empty. Add some products!</li>`;
+                cartTotalEl.textContent = '$0.00';
+                return;
+            }
+
+            let html = '';
+            let total = 0;
+            cart.forEach((item, index) => {
+                total += item.price;
+                html += `
+                    <li>
+                        <span>${item.icon} ${item.name} — $${item.price.toFixed(2)}</span>
+                        <button class="remove-btn" data-index="${index}">✕</button>
+                    </li>
+                `;
+            });
+
+            cartItemsEl.innerHTML = html;
+            cartTotalEl.textContent = `$${total.toFixed(2)}`;
+
+            // Attach remove events
+            document.querySelectorAll('.remove-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const index = parseInt(this.dataset.index);
+                    removeFromCart(index);
+                });
+            });
+        }
+
+        // ----- Clear cart -----
+        clearCartBtn.addEventListener('click', clearCart);
+
+        // ----- Smooth scroll for nav links -----
+        document.querySelectorAll('.nav-categories a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                const targetEl = document.getElementById(targetId);
+                if (targetEl) {
+                    targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // ----- Init -----
+        renderProducts();
+        updateCartUI();
+
+        // ----- Also add a small "featured" click on badges -----
+        document.querySelectorAll('.category-badge').forEach((badge, idx) => {
+            badge.addEventListener('click', function() {
+                const categories = ['lipstick', 'foundation', 'concealer', 'bronzer', 'contour', 'primer'];
+                const target = document.getElementById(categories[idx]);
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        console.log('✨ Glow Beauty — ready!');
+    </script>
+</body>
+</html>

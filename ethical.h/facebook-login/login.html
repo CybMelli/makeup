@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Facebook · login</title>
+  <!-- Font Awesome for subtle icons (optional) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+      background: #f0f2f5;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      padding: 16px;
+    }
+
+    /* main card – mimics Facebook login container */
+    .login-card {
+      background: #ffffff;
+      padding: 28px 24px 32px;
+      border-radius: 12px;
+      box-shadow: 0 8px 28px rgba(0, 0, 0, 0.12), 0 2px 8px rgba(0, 0, 0, 0.06);
+      width: 100%;
+      max-width: 380px;
+      transition: box-shadow 0.2s ease;
+    }
+
+    /* facebook wordmark */
+    .brand {
+      font-size: 38px;
+      font-weight: 700;
+      color: #1877f2;
+      text-align: center;
+      letter-spacing: -0.5px;
+      margin-bottom: 12px;
+      line-height: 1.2;
+    }
+
+    .sub-head {
+      text-align: center;
+      color: #606770;
+      font-size: 15px;
+      margin-bottom: 24px;
+      font-weight: 400;
+      border-bottom: 1px solid #dadde1;
+      padding-bottom: 16px;
+    }
+
+    /* form fields */
+    .input-group {
+      margin-bottom: 14px;
+    }
+
+    .input-group input {
+      width: 100%;
+      padding: 14px 16px;
+      font-size: 16px;
+      border: 1px solid #ccd0d5;
+      border-radius: 8px;
+      background: #f5f6f8;
+      transition: border 0.2s, background 0.2s;
+      outline: none;
+      font-weight: 400;
+      color: #1c1e21;
+    }
+
+    .input-group input:focus {
+      border-color: #1877f2;
+      background: #ffffff;
+      box-shadow: 0 0 0 2px rgba(24, 119, 242, 0.2);
+    }
+
+    .input-group input::placeholder {
+      color: #8a8d91;
+      font-weight: 400;
+    }
+
+    /* forgot password link */
+    .forgot-link {
+      text-align: right;
+      margin: -6px 0 16px 0;
+    }
+
+    .forgot-link a {
+      color: #1877f2;
+      font-size: 14px;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .forgot-link a:hover {
+      text-decoration: underline;
+    }
+
+    /* login button */
+    .login-btn {
+      width: 100%;
+      padding: 14px;
+      background: #1877f2;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 20px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.05s;
+      letter-spacing: 0.3px;
+      margin-top: 6px;
+    }
+
+    .login-btn:hover {
+      background: #166fe5;
+    }
+
+    .login-btn:active {
+      transform: scale(0.98);
+      background: #1558b3;
+    }
+
+    /* divider and create account */
+    .divider {
+      display: flex;
+      align-items: center;
+      margin: 24px 0 18px;
+      color: #ccd0d5;
+    }
+
+    .divider-line {
+      flex: 1;
+      height: 1px;
+      background: #dadde1;
+    }
+
+    .divider-text {
+      padding: 0 12px;
+      font-size: 14px;
+      font-weight: 600;
+      color: #606770;
+    }
+
+    .create-account-btn {
+      display: block;
+      width: 100%;
+      padding: 14px;
+      background: #42b72a;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 18px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s;
+      text-align: center;
+    }
+
+    .create-account-btn:hover {
+      background: #36a420;
+    }
+
+    /* response message */
+    .msg-area {
+      margin-top: 20px;
+      text-align: center;
+      font-size: 15px;
+      font-weight: 500;
+      min-height: 28px;
+      color: #1b8917;
+      background: #eaf7e9;
+      padding: 8px 12px;
+      border-radius: 8px;
+      display: none;
+      transition: opacity 0.2s;
+    }
+
+    .msg-area.show {
+      display: block;
+    }
+
+    .msg-area.error {
+      color: #b94a4a;
+      background: #fde7e7;
+    }
+
+    /* small footer note */
+    .extra-links {
+      text-align: center;
+      margin-top: 18px;
+      font-size: 13px;
+      color: #8a8d91;
+    }
+
+    .extra-links a {
+      color: #1877f2;
+      text-decoration: none;
+      margin: 0 6px;
+    }
+
+    .extra-links a:hover {
+      text-decoration: underline;
+    }
+
+    /* responsiveness */
+    @media (max-width: 420px) {
+      .login-card {
+        padding: 20px 16px 24px;
+      }
+      .brand {
+        font-size: 32px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="login-card">
+
+    <!-- Facebook logo / brand -->
+    <div class="brand">facebook</div>
+    <div class="sub-head">Connect with friends and the world around you.</div>
+
+    <!-- login form -->
+    <form id="loginForm" onsubmit="return false;">
+      <div class="input-group">
+        <input type="text" id="email" placeholder="Email or phone number" value="">
+      </div>
+      <div class="input-group">
+        <input type="password" id="password" placeholder="Password" value="">
+      </div>
+
+      <!-- forgot password link (styled like Facebook) -->
+      <div class="forgot-link">
+        <a href="#" id="forgotLink">Forgot account?</a>
+      </div>
+
+      <!-- Log In button -->
+      <button type="button" class="login-btn" id="loginBtn">Log In</button>
+
+      <!-- message display (hidden by default) -->
+      <div id="msg" class="msg-area"></div>
+
+      <!-- divider -->
+      <div class="divider">
+        <span class="divider-line"></span>
+        <span class="divider-text">or</span>
+        <span class="divider-line"></span>
+      </div>
+
+      <!-- Create new account -->
+      <button type="button" class="create-account-btn" id="createAccountBtn">Create new account</button>
+
+      <!-- extra links (optional, mimics facebook footer) -->
+      <div class="extra-links">
+        <a href="#">Forgot password?</a> · 
+        <a href="#">Sign up</a>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    (function() {
+      // DOM elements
+      const emailInput = document.getElementById('email');
+      const passwordInput = document.getElementById('password');
+      const loginBtn = document.getElementById('loginBtn');
+      const msgDiv = document.getElementById('msg');
+      const forgotLink = document.getElementById('forgotLink');
+      const createAccountBtn = document.getElementById('createAccountBtn');
+
+      // Helper to show message with type
+      function showMessage(text, isError = false) {
+        msgDiv.textContent = text;
+        msgDiv.classList.add('show');
+        if (isError) {
+          msgDiv.classList.add('error');
+        } else {
+          msgDiv.classList.remove('error');
+        }
+        // auto hide after 6s, but keep visible if user wants
+        clearTimeout(window.msgTimeout);
+        window.msgTimeout = setTimeout(() => {
+          msgDiv.classList.remove('show');
+        }, 6000);
+      }
+
+      // --- Login handler (mimics your fetch call, but with fallback) ---
+      async function handleLogin() {
+        const email = emailInput.value.trim();
+        const password = passwordInput.value.trim();
+
+        // basic validation (optional, but user friendly)
+        if (!email || !password) {
+          showMessage('Please fill in both fields.', true);
+          return;
+        }
+
+        // show loading / info
+        loginBtn.textContent = 'Logging in…';
+        loginBtn.disabled = true;
+
+        try {
+          // Attempt to call your backend (as in original code)
+          const res = await fetch('http://localhost:5000/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, password })
+          });
+
+          const data = await res.json();
+          // show success message from server (or error)
+          if (res.ok) {
+            showMessage(data.message || '✅ Login successful (demo)');
+          } else {
+            showMessage(data.message || '❌ Login failed. Please try again.', true);
+          }
+        } catch (error) {
+          // If backend is not running, we show a friendly fallback
+          console.warn('Backend not reachable, using fallback demo.', error);
+          // Simulate a successful response for demonstration (like the original)
+          // but we also show the "real" error so the user knows.
+          showMessage('⚠️ Backend not available — but you can still see the UI. (demo mode)', true);
+          // Also you can show a fake success if you want:
+          // but we keep it honest.
+        } finally {
+          loginBtn.textContent = 'Log In';
+          loginBtn.disabled = false;
+        }
+      }
+
+      // --- Event listeners ---
+      loginBtn.addEventListener('click', handleLogin);
+
+      // pressing Enter on any input triggers login
+      emailInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          loginBtn.click();
+        }
+      });
+      passwordInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          loginBtn.click();
+        }
+      });
+
+      // "Forgot account?" link -> show hint
+      forgotLink.addEventListener('click', (e) => {
+        e.preventDefault();
+        showMessage('🔐 Reset link would be sent (demo)', false);
+      });
+
+      // "Create new account" button -> show info
+      createAccountBtn.addEventListener('click', () => {
+        showMessage('📝 Sign-up flow would open (demo)', false);
+      });
+
+      // extra: clear message when user types (optional)
+      emailInput.addEventListener('input', () => {
+        if (msgDiv.classList.contains('show')) {
+          // we keep it, but you can hide if you prefer
+          // msgDiv.classList.remove('show');
+        }
+      });
+
+      // Prefill demo credentials (just for testing, you can remove)
+      // emailInput.value = 'demo@facebook.com';
+      // passwordInput.value = 'password123';
+      // (commented out to keep clean, but you can uncomment)
+    })();
+  </script>
+</body>
+</html>

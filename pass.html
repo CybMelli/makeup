@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Password Strength Checker</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0f0f13;
+      font-family: 'Courier New', Courier, monospace;
+      color: #e2e2e2;
+    }
+
+    .card {
+      background: #17171f;
+      border: 1px solid #2a2a38;
+      border-radius: 12px;
+      padding: 2.5rem 2rem;
+      width: 100%;
+      max-width: 480px;
+      margin: 1.5rem;
+    }
+
+    .title {
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      color: #666;
+      text-transform: uppercase;
+      margin-bottom: 0.4rem;
+    }
+
+    .title span { color: #a78bfa; }
+
+    h1 {
+      font-size: 20px;
+      font-weight: 600;
+      color: #f0f0f0;
+      margin-bottom: 2rem;
+      letter-spacing: -0.01em;
+    }
+
+    .input-row {
+      position: relative;
+      margin-bottom: 1.5rem;
+    }
+
+    .prompt {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #a78bfa;
+      font-size: 16px;
+      pointer-events: none;
+    }
+
+    #pwd {
+      width: 100%;
+      padding: 13px 44px 13px 34px;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 15px;
+      background: #0f0f13;
+      border: 1px solid #2a2a38;
+      border-radius: 8px;
+      color: #e2e2e2;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    #pwd::placeholder { color: #444; }
+    #pwd:focus { border-color: #534ab7; box-shadow: 0 0 0 3px rgba(83,74,183,0.15); }
+
+    .toggle {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: #555;
+      padding: 4px;
+      font-size: 18px;
+      transition: color 0.2s;
+      display: flex;
+      align-items: center;
+    }
+    .toggle:hover { color: #a78bfa; }
+
+    .meter-row {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 0.75rem;
+    }
+
+    .bar {
+      flex: 1;
+      height: 4px;
+      border-radius: 2px;
+      background: #2a2a38;
+      transition: background 0.3s;
+    }
+
+    .label-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .strength-label {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+    }
+
+    .score-text {
+      font-size: 12px;
+      color: #555;
+    }
+
+    .divider {
+      border: none;
+      border-top: 1px solid #2a2a38;
+      margin-bottom: 1.25rem;
+    }
+
+    .output { font-size: 13px; line-height: 2; min-height: 90px; }
+
+    .line {
+      display: flex;
+      align-items: flex-start;
+      gap: 9px;
+    }
+
+    .line .icon { flex-shrink: 0; margin-top: 3px; font-size: 15px; }
+
+    .ok   { color: #1D9E75; }
+    .fail { color: #E24B4A; }
+    .neutral { color: #555; }
+
+    .result-banner {
+      margin-top: 1.25rem;
+      padding: 10px 14px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      display: none;
+    }
+
+    .result-banner.strong {
+      background: rgba(29,158,117,0.12);
+      border: 1px solid rgba(29,158,117,0.3);
+      color: #1D9E75;
+    }
+
+    .result-banner.weak {
+      background: rgba(226,75,74,0.1);
+      border: 1px solid rgba(226,75,74,0.25);
+      color: #E24B4A;
+    }
+
+    .footer {
+      margin-top: 2rem;
+      font-size: 11px;
+      color: #333;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <p class="title">// <span>password</span>.check()</p>
+    <h1>Password Strength</h1>
+
+    <div class="input-row">
+      <span class="prompt">$</span>
+      <input type="password" id="pwd" placeholder="type your password..." autocomplete="new-password" />
+      <button class="toggle" id="toggleBtn" aria-label="Show password" onclick="toggleVis()">
+        <i class="ti ti-eye"></i>
+      </button>
+    </div>
+
+    <div class="meter-row">
+      <div class="bar" id="b0"></div>
+      <div class="bar" id="b1"></div>
+      <div class="bar" id="b2"></div>
+      <div class="bar" id="b3"></div>
+      <div class="bar" id="b4"></div>
+    </div>
+
+    <div class="label-row">
+      <span class="strength-label" id="strengthLabel" style="color:#444;">—</span>
+      <span class="score-text" id="scoreText">0 / 5 checks passed</span>
+    </div>
+
+    <hr class="divider" />
+
+    <div class="output" id="output">
+      <div class="line neutral">
+        <i class="ti ti-terminal-2 icon"></i>
+        <span>waiting for input...</span>
+      </div>
+    </div>
+
+    <div class="result-banner" id="resultBanner"></div>
+
+    <p class="footer">Built with Python logic · no data is stored or sent</p>
+  </div>
+
+  <script>
+    const barColors    = ['#E24B4A','#E24B4A','#EF9F27','#1D9E75','#1D9E75'];
+    const strengthText = ['Very weak','Weak','Fair','Strong','Very strong'];
+    const strengthClr  = ['#E24B4A','#E24B4A','#BA7517','#1D9E75','#1D9E75'];
+
+    function checkPassword(pw) {
+      return [
+        { ok: pw.length >= 8,       msg: 'at least 8 characters' },
+        { ok: /[A-Z]/.test(pw),     msg: 'one uppercase letter' },
+        { ok: /[a-z]/.test(pw),     msg: 'one lowercase letter' },
+        { ok: /[@#$%^]/.test(pw),   msg: 'one special character (@#$%^)' },
+        { ok: /\d/.test(pw),        msg: 'one number (0–9)' },
+      ];
+    }
+
+    function render() {
+      const pw = document.getElementById('pwd').value;
+      const banner = document.getElementById('resultBanner');
+
+      if (!pw) {
+        document.getElementById('strengthLabel').textContent = '—';
+        document.getElementById('strengthLabel').style.color = '#444';
+        document.getElementById('scoreText').textContent = '0 / 5 checks passed';
+        document.getElementById('output').innerHTML =
+          '<div class="line neutral"><i class="ti ti-terminal-2 icon"></i><span>waiting for input...</span></div>';
+        for (let i = 0; i < 5; i++) document.getElementById('b'+i).style.background = '#2a2a38';
+        banner.style.display = 'none';
+        return;
+      }
+
+      const rules = checkPassword(pw);
+      const score = rules.filter(r => r.ok).length;
+
+      for (let i = 0; i < 5; i++) {
+        document.getElementById('b'+i).style.background = i < score ? barColors[score-1] : '#2a2a38';
+      }
+
+      const lbl = document.getElementById('strengthLabel');
+      lbl.textContent = strengthText[score-1] || 'Very weak';
+      lbl.style.color  = strengthClr[score-1]  || '#E24B4A';
+      document.getElementById('scoreText').textContent = score + ' / 5 checks passed';
+
+      document.getElementById('output').innerHTML = rules.map(r =>
+        `<div class="line ${r.ok ? 'ok' : 'fail'}">
+          <i class="ti ${r.ok ? 'ti-circle-check' : 'ti-circle-x'} icon"></i>
+          <span>${r.msg}</span>
+        </div>`
+      ).join('');
+
+      if (score === 5) {
+        banner.textContent = '✓ Strong Password';
+        banner.className = 'result-banner strong';
+        banner.style.display = 'block';
+      } else {
+        banner.textContent = '✗ Weak Password — fix the items above';
+        banner.className = 'result-banner weak';
+        banner.style.display = 'block';
+      }
+    }
+
+    function toggleVis() {
+      const inp = document.getElementById('pwd');
+      const btn = document.getElementById('toggleBtn');
+      if (inp.type === 'password') {
+        inp.type = 'text';
+        btn.innerHTML = '<i class="ti ti-eye-off"></i>';
+        btn.setAttribute('aria-label', 'Hide password');
+      } else {
+        inp.type = 'password';
+        btn.innerHTML = '<i class="ti ti-eye"></i>';
+        btn.setAttribute('aria-label', 'Show password');
+      }
+    }
+
+    document.getElementById('pwd').addEventListener('input', render);
+  </script>
+</body>
+</html>
